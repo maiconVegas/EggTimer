@@ -1,0 +1,6 @@
+@EggTimer_HostAddress = http://localhost:5167
+
+GET {{EggTimer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
