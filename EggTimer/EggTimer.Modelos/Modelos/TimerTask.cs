@@ -3,6 +3,7 @@
 namespace EggTimer.Modelos;
 public class TimerTask
 {
+    [Key]
     [Required]
     public int Id { get; set; }
     [Required(ErrorMessage = "Nome da Tarefa é obrigatória")]

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EggTimer.API", "EggTimer\Eg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EggTimer.Modelos", "EggTimer.Modelos\EggTimer.Modelos.csproj", "{389AF3EE-CFCD-484A-A1BF-D8CD05E32DDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EggTimer.Dados", "EggTimer.Dados\EggTimer.Dados.csproj", "{CCDA906B-82B2-4A08-B484-CDD44D32914B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{389AF3EE-CFCD-484A-A1BF-D8CD05E32DDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{389AF3EE-CFCD-484A-A1BF-D8CD05E32DDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{389AF3EE-CFCD-484A-A1BF-D8CD05E32DDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCDA906B-82B2-4A08-B484-CDD44D32914B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCDA906B-82B2-4A08-B484-CDD44D32914B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCDA906B-82B2-4A08-B484-CDD44D32914B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCDA906B-82B2-4A08-B484-CDD44D32914B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

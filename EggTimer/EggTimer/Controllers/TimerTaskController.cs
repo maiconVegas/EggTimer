@@ -22,7 +22,7 @@ public class TimerTaskController : ControllerBase
     [HttpPost]
     public IActionResult AdicionarTimerTask([FromBody]TimerTaskRequest taskRequest)
     {
-        var task = new TimerTask() { NomeTarefa = taskRequest.Nome, TempoCronometrado = taskRequest.HorarioCronometrado, Status = taskRequest.Status};
+        var task = new TimerTask(taskRequest.Nome, taskRequest.HorarioCronometrado, taskRequest.Status);
         _tasks.Add(task);
         return CreatedAtAction(nameof(RecuperarTimerTaskPorId), new { id = task.Id}, task);
     }

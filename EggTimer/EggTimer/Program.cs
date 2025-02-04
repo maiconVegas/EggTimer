@@ -1,4 +1,10 @@
+using EggTimer.Dados.Banco;
+using EggTimer.Modelos;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<EggTimerContext>();
+builder.Services.AddTransient<DAL<TimerTask>>();
 
 // Add services to the container.
 
