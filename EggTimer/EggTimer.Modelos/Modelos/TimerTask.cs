@@ -20,4 +20,13 @@ public class TimerTask
     {
         
     }
+    public TimerTask(string nome, TimeSpan tempo, string status)
+    {
+        this.NomeTarefa = nome;
+        this.Data = DateOnly.FromDateTime(DateTime.Now);
+        this.TempoCronometrado = tempo;
+        this.Status = status;
+        this.HorarioInicio = TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss"));
+        this.HorarioFim = HorarioInicio.Add(tempo);
+    }
 }
