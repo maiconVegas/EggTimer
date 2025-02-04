@@ -1,4 +1,5 @@
-﻿using EggTimer.Modelos;
+﻿using EggTimer.API.Responses;
+using EggTimer.Modelos;
 using Microsoft.AspNetCore.Mvc;
 namespace EggTimer.API.Controllers;
 
@@ -7,7 +8,14 @@ namespace EggTimer.API.Controllers;
 public class TimerTaskController : ControllerBase
 {
     private static List<TimerTask> _tasks = new List<TimerTask>();
-
+    private static ICollection<TimerTaskResponse> EntityListToResponseList(IEnumerable<TimerTask> listaDeTasks)
+    {
+        return listaDeTasks.Select(a => EntityToResponse(a)).ToList();
+    }
+    private static TimerTaskResponse EntityToResponse(TimerTask task)
+    {
+        return new TimerTaskResponse(task.NomeTarefa, task.Status);
+    }
     [HttpPost]
     public void AdicionarTimerTask([FromBody]TimerTask task)
     {
@@ -16,8 +24,8 @@ public class TimerTaskController : ControllerBase
     }
 
     [HttpGet]
-    public List<TimerTask> ListarTimerTask()
+    public IActionResult ListarTimerTask()
     {
-        return _tasks;
+        return Ok(EntityListToResponseList(_tasks));
     }
 }
