@@ -15,4 +15,9 @@ public class TimerTask
     public TimeSpan TempoCronometrado { get; set; }
     [Required(ErrorMessage = "Status é requerido")]
     public string Status { get; set; }
+
+    public TimerTask()
+    {
+        
+    }
 }

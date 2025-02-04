@@ -1,4 +1,5 @@
 ﻿using System.Reflection.Metadata.Ecma335;
+using EggTimer.API.Requests;
 using EggTimer.API.Responses;
 using EggTimer.Modelos;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +20,11 @@ public class TimerTaskController : ControllerBase
     }
 
     [HttpPost]
-    public void AdicionarTimerTask([FromBody]TimerTask task)
+    public IActionResult AdicionarTimerTask([FromBody]TimerTaskRequest taskRequest)
     {
+        var task = new TimerTask() { NomeTarefa = taskRequest.Nome, TempoCronometrado = taskRequest.HorarioCronometrado, Status = taskRequest.Status};
         _tasks.Add(task);
-        Console.WriteLine(task.Data);
+        return CreatedAtAction(nameof(RecuperarTimerTaskPorId), new { id = task.Id}, task);
     }
 
     [HttpGet]
