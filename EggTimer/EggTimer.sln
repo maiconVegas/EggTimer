@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EggTimer", "EggTimer\EggTimer.csproj", "{B856A437-5896-4DB1-90F1-D769778C07B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EggTimer.API", "EggTimer\EggTimer.API.csproj", "{B856A437-5896-4DB1-90F1-D769778C07B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EggTimer.Modelos", "EggTimer.Modelos\EggTimer.Modelos.csproj", "{389AF3EE-CFCD-484A-A1BF-D8CD05E32DDC}"
 EndProject
