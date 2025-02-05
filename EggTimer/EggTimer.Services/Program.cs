@@ -2,6 +2,6 @@
 
 using EggTimer.Services.Services;
 
-Console.WriteLine("Hello, World!");
+//Console.WriteLine("Hello, World!");
 
 TimerTaskService.Executar();
