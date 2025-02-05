@@ -18,14 +18,13 @@ public class TimerTaskController : ControllerBase
     }
     private static TimerTaskResponse EntityToResponse(TimerTask task)
     {
-        return new TimerTaskResponse(task.NomeTarefa, task.Status);
+        return new TimerTaskResponse(task.NomeTarefa, task.TempoCronometrado, task.Status);
     }
 
     [HttpPost]
-    public IActionResult AdicionarTimerTask([FromServices] DAL<TimerTask> dal,[FromBody]TimerTaskRequest taskRequest)
+    public IActionResult AdicionarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody]TimerTaskRequest taskRequest)
     {
         var task = new TimerTask(taskRequest.Nome, taskRequest.HorarioCronometrado, taskRequest.Status);
-        //_tasks.Add(task);
         dal.Adicionar(task);
         return CreatedAtAction(nameof(RecuperarTimerTaskPorId), new { id = task.Id}, task);
     }
@@ -68,7 +67,7 @@ public class TimerTaskController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult? AtualizarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody] TimerTaskRequestEdit artistaRequest, int id)
+    public IActionResult? AtualizarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody] TimerTaskRequestEdit tarefaRequest, int id)
     {
         var task = dal.RecuperarPor(a => a.Id == id);
         if (task is null)
@@ -76,10 +75,14 @@ public class TimerTaskController : ControllerBase
             return NotFound();
         }
 
-        task.NomeTarefa = artistaRequest.Nome;
-        task.TempoCronometrado = artistaRequest.HorarioCronometrado;
-        task.Status = artistaRequest.Status;
-        //artistaAtualizar.FotoPerfil = artista.FotoPerfil;
+        //var taskUp = new TimerTask(task.NomeTarefa, task.TempoCronometrado, task.Status) { Id = id};
+
+        task.NomeTarefa = tarefaRequest.Nome;
+        task.Data = DateOnly.FromDateTime(DateTime.Now);
+        task.TempoCronometrado = tarefaRequest.HorarioCronometrado;
+        task.HorarioInicio = TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss"));
+        task.HorarioFim = task.HorarioInicio.Add(tarefaRequest.HorarioCronometrado);
+        task.Status = tarefaRequest.Status;
 
         dal.Atualizar(task);
         return Ok();
