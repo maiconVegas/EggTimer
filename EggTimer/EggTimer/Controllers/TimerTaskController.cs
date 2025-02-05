@@ -67,19 +67,10 @@ public class TimerTaskController : ControllerBase
         return NoContent();
     }
 
-    //[HttpPut("{id}")]
-    //public IActionResult? AtualizarTimerTask([FromServices] DAL<Artista> dal, [FromBody] ArtistaRequestEdit artistaRequest, int id)
-    //{
-    //    var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
-    //    if (filme == null) return NotFound();
-    //    _mapper.Map(filmeDto, filme);
-    //    _context.SaveChanges();
-    //    return NoContent();
-    //}
-    [HttpPut]
-    public IActionResult? AtualizarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody] TimerTaskRequestEdit artistaRequest)
+    [HttpPut("{id}")]
+    public IActionResult? AtualizarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody] TimerTaskRequestEdit artistaRequest, int id)
     {
-        var task = dal.RecuperarPor(a => a.Id.Equals(artistaRequest.id));
+        var task = dal.RecuperarPor(a => a.Id == id);
         if (task is null)
         {
             return NotFound();
@@ -93,4 +84,21 @@ public class TimerTaskController : ControllerBase
         dal.Atualizar(task);
         return Ok();
     }
+    //[HttpPut]
+    //public IActionResult? AtualizarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody] TimerTaskRequestEdit artistaRequest)
+    //{
+    //    var task = dal.RecuperarPor(a => a.Id.Equals(artistaRequest.id));
+    //    if (task is null)
+    //    {
+    //        return NotFound();
+    //    }
+
+    //    task.NomeTarefa = artistaRequest.Nome;
+    //    task.TempoCronometrado = artistaRequest.HorarioCronometrado;
+    //    task.Status = artistaRequest.Status;
+    //    //artistaAtualizar.FotoPerfil = artista.FotoPerfil;
+
+    //    dal.Atualizar(task);
+    //    return Ok();
+    //}
 }
