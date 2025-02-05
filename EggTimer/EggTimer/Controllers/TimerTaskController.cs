@@ -11,7 +11,6 @@ namespace EggTimer.API.Controllers;
 [Route("[controller]")]
 public class TimerTaskController : ControllerBase
 {
-    private static List<TimerTask> _tasks = new List<TimerTask>();
     private static IEnumerable<TimerTaskResponse> EntityListToResponseList(IEnumerable<TimerTask> listaDeTasks)
     {
         return listaDeTasks.Select(a => EntityToResponse(a)).ToList();
@@ -29,7 +28,7 @@ public class TimerTaskController : ControllerBase
     [HttpPost]
     public IActionResult AdicionarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody]TimerTaskRequest taskRequest)
     {
-        var task = new TimerTask(taskRequest.Nome, taskRequest.HorarioCronometrado, taskRequest.Status);
+        var task = new TimerTask(taskRequest.Nome, taskRequest.HorarioCronometrado, "Em Andamento");
         dal.Adicionar(task);
         return CreatedAtAction(nameof(RecuperarTimerTaskPorId), new { id = task.Id}, task);
     }

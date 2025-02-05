@@ -6,49 +6,42 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using EggTimer.Modelos;
 using EggTimer.Dados.Banco;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace EggTimer.Services.Services;
-public static class TimerTaskService
+public class TimerTaskService
 {
-    private static Timer _timer;
-    private static IServiceProvider _serviceProvider;
+    private Timer _timer;
+    private readonly DAL<TimerTask> _dal;
 
-    public static void Executar()
+    public TimerTaskService(EggTimerContext contexto)
     {
-        var services = new ServiceCollection();
-        services.AddDbContext<EggTimerContext>(options =>
-            options.UseSqlServer("Server=localhost;Database=EggTimerDB;Trusted_Connection=True;TrustServerCertificate=True;")); // Configure sua string de conexão aqui
+        _dal = new DAL<TimerTask>(contexto);
+    }
 
-        services.AddScoped<DAL<TimerTask>>();
-
-        _serviceProvider = services.BuildServiceProvider();
-        _timer = new Timer(AtualizarStatusTarefas, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
+    public void Executar()
+    {
+        _timer = new Timer(state => AtualizarStatusTarefas(), null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
 
         Console.WriteLine("Serviço rodando... Pressione Enter para sair.");
         Console.ReadLine();
     }
 
-    private static void AtualizarStatusTarefas(object state)
+    private void AtualizarStatusTarefas()
     {
-        using (var scope = _serviceProvider.CreateScope())
-        {
-            var dal = scope.ServiceProvider.GetRequiredService<DAL<TimerTask>>();
-            var tarefas = dal.Listar();
+        var tarefas = _dal.Listar();
 
-            foreach (var task in tarefas)
+        foreach (var task in tarefas)
+        {
+            var statusAtualizado = AtualizarStatus(task);
+            if (task.Status != statusAtualizado)
             {
-                var statusAtualizado = AtualizarStatus(task);
-                if (task.Status != statusAtualizado)
-                {
-                    task.Status = statusAtualizado;
-                    dal.Atualizar(task);
-                }
+                task.Status = statusAtualizado;
+                _dal.Atualizar(task);
             }
         }
     }
 
-    private static string AtualizarStatus(TimerTask task)
+    private string AtualizarStatus(TimerTask task)
     {
         var horarioAtual = TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss"));
         return horarioAtual < task.HorarioFim ? "Em Andamento" : "Concluído";

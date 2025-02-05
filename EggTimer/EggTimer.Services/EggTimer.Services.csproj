@@ -10,9 +10,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\EggTimer.Dados\EggTimer.Dados.csproj" />
 		<ProjectReference Include="..\EggTimer.Modelos\EggTimer.Modelos.csproj" />
-
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
-
 	</ItemGroup>
 
 </Project>
