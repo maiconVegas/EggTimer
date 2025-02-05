@@ -20,6 +20,11 @@ public class TimerTaskController : ControllerBase
     {
         return new TimerTaskResponse(task.NomeTarefa, task.TempoCronometrado, task.Status);
     }
+    private string AtualizarStatus(TimerTask task)
+    {
+        var horarioAtual = TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss"));
+        return horarioAtual < task.HorarioFim ? "Em Andamento" : "Concluído";
+    }
 
     [HttpPost]
     public IActionResult AdicionarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody]TimerTaskRequest taskRequest)
@@ -82,8 +87,8 @@ public class TimerTaskController : ControllerBase
         task.TempoCronometrado = tarefaRequest.HorarioCronometrado;
         task.HorarioInicio = TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss"));
         task.HorarioFim = task.HorarioInicio.Add(tarefaRequest.HorarioCronometrado);
-        task.Status = tarefaRequest.Status;
-
+        //task.Status = tarefaRequest.Status;
+        task.Status = AtualizarStatus(task);
         dal.Atualizar(task);
         return Ok();
     }
