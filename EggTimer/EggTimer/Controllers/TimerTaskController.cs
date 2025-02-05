@@ -36,9 +36,9 @@ public class TimerTaskController : ControllerBase
     }
 
     [HttpGet("id/{id}")]
-    public IActionResult RecuperarTimerTaskPorId(int id)
+    public IActionResult RecuperarTimerTaskPorId([FromServices] DAL<TimerTask> dal, int id)
     {
-        var task = _tasks.FirstOrDefault(task => task.Id == id);
+        var task = dal.RecuperarPor(task => task.Id == id);
         if (task is null)
         {
             return NotFound();
@@ -47,9 +47,9 @@ public class TimerTaskController : ControllerBase
     }
 
     [HttpGet("nome/{nome}")]
-    public IActionResult RecuperarTimerTaskPorNome(string nome)
+    public IActionResult RecuperarTimerTaskPorNome([FromServices] DAL<TimerTask> dal, string nome)
     {
-        var task = _tasks.FirstOrDefault(t => t.NomeTarefa.ToUpper().Equals(nome.ToUpper()));
+        var task = dal.RecuperarPor(t => t.NomeTarefa.ToUpper().Equals(nome.ToUpper()));
         if (task is null)
         {
             return NotFound();
