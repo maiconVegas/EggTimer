@@ -4,6 +4,7 @@ using EggTimer.API.Responses;
 using EggTimer.Dados.Banco;
 using EggTimer.Modelos;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 namespace EggTimer.API.Controllers;
 
 [ApiController]
@@ -57,4 +58,39 @@ public class TimerTaskController : ControllerBase
         return Ok(EntityToResponse(task));
     }
 
+    [HttpDelete("{id}")]
+    public IActionResult DeletarTimerTask([FromServices] DAL<TimerTask> dal, int id)
+    {
+        var task = dal.RecuperarPor(filme => filme.Id == id);
+        if (task is null) return NotFound();
+        dal.Deletar(task);
+        return NoContent();
+    }
+
+    //[HttpPut("{id}")]
+    //public IActionResult? AtualizarTimerTask([FromServices] DAL<Artista> dal, [FromBody] ArtistaRequestEdit artistaRequest, int id)
+    //{
+    //    var filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
+    //    if (filme == null) return NotFound();
+    //    _mapper.Map(filmeDto, filme);
+    //    _context.SaveChanges();
+    //    return NoContent();
+    //}
+    [HttpPut]
+    public IActionResult? AtualizarTimerTask([FromServices] DAL<TimerTask> dal, [FromBody] TimerTaskRequestEdit artistaRequest)
+    {
+        var task = dal.RecuperarPor(a => a.Id.Equals(artistaRequest.id));
+        if (task is null)
+        {
+            return NotFound();
+        }
+
+        task.NomeTarefa = artistaRequest.Nome;
+        task.TempoCronometrado = artistaRequest.HorarioCronometrado;
+        task.Status = artistaRequest.Status;
+        //artistaAtualizar.FotoPerfil = artista.FotoPerfil;
+
+        dal.Atualizar(task);
+        return Ok();
+    }
 }
