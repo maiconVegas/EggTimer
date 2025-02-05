@@ -1,6 +1,7 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using EggTimer.API.Requests;
 using EggTimer.API.Responses;
+using EggTimer.Dados.Banco;
 using EggTimer.Modelos;
 using Microsoft.AspNetCore.Mvc;
 namespace EggTimer.API.Controllers;
@@ -20,17 +21,18 @@ public class TimerTaskController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult AdicionarTimerTask([FromBody]TimerTaskRequest taskRequest)
+    public IActionResult AdicionarTimerTask([FromServices] DAL<TimerTask> dal,[FromBody]TimerTaskRequest taskRequest)
     {
         var task = new TimerTask(taskRequest.Nome, taskRequest.HorarioCronometrado, taskRequest.Status);
-        _tasks.Add(task);
+        //_tasks.Add(task);
+        dal.Adicionar(task);
         return CreatedAtAction(nameof(RecuperarTimerTaskPorId), new { id = task.Id}, task);
     }
 
     [HttpGet]
-    public IActionResult ListarTimerTask()
+    public IActionResult ListarTimerTask([FromServices] DAL<TimerTask> dal)
     {
-        return Ok(EntityListToResponseList(_tasks));
+        return Ok(EntityListToResponseList(dal.Listar()));
     }
 
     [HttpGet("id/{id}")]
