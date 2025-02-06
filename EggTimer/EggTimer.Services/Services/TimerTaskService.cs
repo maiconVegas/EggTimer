@@ -44,6 +44,6 @@ public class TimerTaskService
     private string AtualizarStatus(TimerTask task)
     {
         var horarioAtual = TimeSpan.Parse(DateTime.Now.ToString("HH:mm:ss"));
-        return horarioAtual < task.HorarioFim ? "Em Andamento" : "Concluído";
+        return DateOnly.FromDateTime(DateTime.Now) < task.Data && horarioAtual < task.HorarioFim ? "Em Andamento" : "Concluído";
     }
 }
