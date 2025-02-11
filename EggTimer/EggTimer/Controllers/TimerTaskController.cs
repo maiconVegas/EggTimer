@@ -17,7 +17,7 @@ public class TimerTaskController : ControllerBase
     }
     private static TimerTaskResponse EntityToResponse(TimerTask task)
     {
-        return new TimerTaskResponse(task.NomeTarefa, task.TempoCronometrado, task.Status);
+        return new TimerTaskResponse(task.Id, task.NomeTarefa, task.HorarioFim, task.TempoCronometrado, task.Status);
     }
     private string AtualizarStatus(TimerTask task)
     {
