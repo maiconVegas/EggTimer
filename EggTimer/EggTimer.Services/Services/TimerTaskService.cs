@@ -26,20 +26,47 @@ public class TimerTaskService
         Console.ReadLine();
     }
 
+    //private void AtualizarStatusTarefas()
+    //{
+    //    var tarefas = _dal.Listar();
+
+    //    foreach (var task in tarefas)
+    //    {
+    //        var statusAtualizado = AtualizarStatus(task);
+    //        if (task.Status != statusAtualizado)
+    //        {
+    //            task.Status = statusAtualizado;
+    //            _dal.Atualizar(task);
+    //        }
+    //    }
+    //}
+
     private void AtualizarStatusTarefas()
     {
-        var tarefas = _dal.Listar();
+        /*
+         O Entity Framework Core (EF Core) tem um mecanismo interno chamado Change Tracker. Esse mecanismo rastreia todas as entidades que foram carregadas do banco de dados dentro de um mesmo contexto (DbContext).
 
-        foreach (var task in tarefas)
+Se uma entidade já foi carregada antes dentro desse contexto, o EF não a busca novamente no banco porque ele já tem essa entidade na memória.
+
+Isso pode causar um problema quando você tenta atualizar uma entidade que já foi carregada antes.
+         */
+        using (var contexto = new EggTimerContext())
         {
-            var statusAtualizado = AtualizarStatus(task);
-            if (task.Status != statusAtualizado)
+            var dal = new DAL<TimerTask>(contexto);
+            var tarefas = dal.Listar();
+
+            foreach (var task in tarefas)
             {
-                task.Status = statusAtualizado;
-                _dal.Atualizar(task);
+                var statusAtualizado = AtualizarStatus(task);
+                if (task.Status != statusAtualizado)
+                {
+                    task.Status = statusAtualizado;
+                    dal.Atualizar(task);
+                }
             }
         }
     }
+
 
     private string AtualizarStatus(TimerTask task)
     {
