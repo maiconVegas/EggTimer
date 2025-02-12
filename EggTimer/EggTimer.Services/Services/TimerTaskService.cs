@@ -11,11 +11,15 @@ namespace EggTimer.Services.Services;
 public class TimerTaskService
 {
     private Timer _timer;
-    private readonly DAL<TimerTask> _dal;
+    //private readonly DAL<TimerTask> _dal;
 
-    public TimerTaskService(EggTimerContext contexto)
+    //public TimerTaskService(EggTimerContext contexto)
+    //{
+    //    _dal = new DAL<TimerTask>(contexto);
+    //}
+    public TimerTaskService()
     {
-        _dal = new DAL<TimerTask>(contexto);
+        
     }
 
     public void Executar()
