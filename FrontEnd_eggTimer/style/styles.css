@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+body {
+    font-family: "Press Start 2P", serif;
+    background-color: #f8e9a1;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.btnInicio{
+    background-color: #ffcc66;
+    border: 2px solid #d4a373;
+    padding: 8px;
+    font-family: "Press Start 2P", serif;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    width: 170px;
+    height: 70px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.welcome-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #958882;
+    width: 100%;
+}
+
+.app-container {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.window {
+    background-color: #fff8dc;
+    padding: 10px;
+    border: 3px solid #d4a373;
+    border-radius: 10px;
+    box-shadow: 5px 5px #a67c52;
+    width: auto;
+    height: auto;
+    max-width: 400px;
+    margin: 10px auto;
+}
+
+.title-bar {
+    background-color: #d4a373;
+    padding: 5px;
+    font-weight: bold;
+    text-align: left;
+}
+
+button {
+    background-color: #ffcc66;
+    border: 2px solid #d4a373;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 80%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Press Start 2P", serif;
+}
+
+select, input {
+    padding: 5px;
+    margin: 5px;
+    width: 80%;
+    max-width: 350px;
+    border-radius: 5px;
+    border: 2px solid #d4a373;
+}
+
+select {
+    background-color: #fef9e4;
+    font-size: 14px;
+    color: #4b4b4b;
+    border-color: #d4a373;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.timer-display {
+    font-size: 24px;
+    font-weight: bold;
+}

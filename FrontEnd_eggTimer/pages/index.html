@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskTime</title>
+    <link rel="stylesheet" href="../style/styles.css">
+</head>
+<body>
+    <div class="welcome-screen" id="welcomeScreen">
+        <h1>Bem-vindo ao TimerTasks</h1>
+        <img src="../images/EggHI.gif" alt="Imagem de Bem-vindo" >
+        <button class="btnInicio" onclick="startApp()">Começar</button>
+    </div>
+
+    <div class="app-container" id="appContainer">
+        <div class="window">
+            <h2>Criar Nova Tarefa</h2>
+            <input type="text" id="nomeNewInput" placeholder="Nome da Tarefa">
+            <input type="text" id="timeNewInput" placeholder="HH:MM:SS">
+            <button onclick="criarTarefa()">Criar Tarefa</button>
+        </div>
+        
+        <div class="window">
+            <h2>Painel Principal</h2>
+            <img src="../images/egg_completed.gif" id="imagemStatusEgg" alt="Imagem da Tarefa" style="width: 250px; height: 210px;">
+            <input type="text" id="nomeInput" placeholder="Nome da Tarefa">
+            <input type="text" id="timeInput" placeholder="HH:MM:SS">
+            <div id="taskActions">
+                <button id="btnEditar" onclick="editarTarefa()">✏️ Editar</button>
+                <button id="btnExcluir" onclick="excluirTarefa()">🗑 Excluir</button>
+                <button id="btnSalvar" onclick="salvarAlteracaoTarefa()" >✔ Salvar</button>
+            </div>
+        </div>
+        
+        <div class="window">
+            <h2>Lista de Tarefas</h2>
+            <select id="listaTarefas" size="10" onchange="mostrarOpcoes()"></select>
+        </div>
+    </div>
+    <script src="../js/script.js"></script>
+</body>
+</html>
